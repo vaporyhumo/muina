@@ -12,12 +12,30 @@ module Muina
       @steps ||= []
     end
 
-    def self.success
+    T::Sig::WithoutRuntime.sig { params(value: T.untyped).returns(T.untyped) }
+    def self.success(&value)
+      @success = value[] if value
       @success ||= T.untyped
     end
 
-    def self.failure
+    T::Sig::WithoutRuntime.sig { params(error: T.untyped).returns(T.untyped) }
+    def self.failure(&error)
+      @failure = error[] if error
       @failure ||= T.untyped
+    end
+
+    def self.parameters(&blk)
+      @parameters ||= Class.new(T::Struct)
+      parameters.instance_eval(&blk) if blk
+      instance_eval(&blk) if blk
+      @parameters
+    end
+
+    T::Sig::WithoutRuntime.sig { params(params: Parameters).returns(T.attached_class) }
+    def self.extract(params)
+      params = ActionController::Parameters.new(params) if params.instance_of?(Hash)
+      i = TypedParams[parameters].new.extract!(params)
+      new(i.serialize.symbolize_keys)
     end
 
     T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
