@@ -13,7 +13,7 @@ module Muina
   UntypedArray = T.type_alias { T::Array[T.untyped] }
   UntypedHash = T.type_alias { T::Hash[T.untyped, T.untyped] }
   UNIT = T.let(Unit.instance, Unit)
-  VERSION = '0.2.0'
+  VERSION = '0.3.0'
 
   class Error < StandardError
   end
@@ -114,11 +114,17 @@ module Muina
     sig { returns(T::Array[T.any(Query, Step)]) }
     def self.steps; end
 
-    sig { returns(T.untyped) }
-    def self.success; end
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def self.success(&value); end
 
-    sig { returns(T.untyped) }
-    def self.failure; end
+    sig { params(error: T.untyped).returns(T.untyped) }
+    def self.failure(&error); end
+
+    sig { params(blk: T.untyped).returns(T.untyped) }
+    def self.parameters(&blk); end
+
+    sig { params(params: Parameters).returns(T.attached_class) }
+    def self.extract(params); end
 
     sig { returns(T::Boolean) }
     def self.result_set; end
