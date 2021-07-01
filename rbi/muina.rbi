@@ -111,7 +111,7 @@ module Muina
     include T::Props
     include T::Props::Constructor
 
-    sig { returns(T::Array[T.any(Query, Step)]) }
+    sig { returns(T::Array[T.any(Query, Step, Command)]) }
     def self.steps; end
 
     sig { params(value: T.untyped).returns(T.untyped) }
@@ -135,14 +135,22 @@ module Muina
     sig { params(name: Symbol, step: T.untyped).void }
     def self.query(name, &step); end
 
+    sig { params(_name: T.untyped, step: T.untyped).void }
+    def self.command(_name = nil, &step); end
+
     sig { params(step: T.untyped).void }
     def self.result(&step); end
 
     sig { returns(Result) }
     def perform; end
 
+    class Command < Value
+      sig { params(instance: Object).void }
+      def call(instance = Object); end
+    end
+
     class Query < Value
-      sig { params(instance: Object).returns(T.untyped) }
+      sig { params(instance: Object).void }
       def call(instance = Object); end
     end
 

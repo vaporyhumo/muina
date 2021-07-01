@@ -10,6 +10,7 @@ requires:
 matcher:
   subjects:
     - Muina::Action*
+    - Muina::Action::Command*
     - Muina::Action::Query*
     - Muina::Action::Step*
     - Muina::Any*

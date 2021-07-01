@@ -29,11 +29,11 @@ module Muina
     end
 
     def value!
-      value.tap { raise Error if value.equal?(Unit.instance) }
+      __send__(:value).tap { raise Error if value.equal?(Unit.instance) }
     end
 
     def error!
-      error.tap { raise Error if error.equal?(Unit.instance) }
+      __send__(:error).tap { raise Error if error.equal?(Unit.instance) }
     end
 
     def and_then(&block)

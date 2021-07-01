@@ -8,7 +8,7 @@ module Muina
       const :name, Symbol
       const :step, T.proc.returns(T.untyped)
 
-      T::Sig::WithoutRuntime.sig { params(instance: Object).returns(T.untyped) }
+      T::Sig::WithoutRuntime.sig { params(instance: Object).void }
       def call(instance = Object)
         result = instance.instance_eval(&step)
         instance.instance_variable_set("@#{name}", result)

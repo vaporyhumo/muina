@@ -7,7 +7,7 @@ module Muina
     include T::Props
     include T::Props::Constructor
 
-    T::Sig::WithoutRuntime.sig { returns(T::Array[T.any(Query, Step)]) }
+    T::Sig::WithoutRuntime.sig { returns(T::Array[T.any(Query, Step, Command)]) }
     def self.steps
       @steps ||= []
     end
@@ -22,6 +22,10 @@ module Muina
     def self.failure(&error)
       @failure = error[] if error
       @failure ||= T.untyped
+    end
+
+    def self.__failure(&step)
+      steps << FailStep.new(step: step, success: success, failure: failure)
     end
 
     def self.parameters(&blk)
@@ -54,6 +58,11 @@ module Muina
       steps << Query.new(name: name, step: step)
     end
 
+    T::Sig::WithoutRuntime.sig { params(_name: T.untyped, step: T.untyped).void }
+    def self.command(_name = nil, &step)
+      steps << Command.new(step: step)
+    end
+
     T::Sig::WithoutRuntime.sig { params(step: T.untyped).void }
     def self.result(&step)
       raise Error if result_set
@@ -65,6 +74,8 @@ module Muina
     T::Sig::WithoutRuntime.sig { returns(Result) }
     def perform
       self.class.steps.map { |step| step.call(self) }.last || Result.success(UNIT)
+    rescue => error
+      Result.failure(error)
     end
   end
 end
