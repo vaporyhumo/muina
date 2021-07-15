@@ -25,7 +25,6 @@ module Muina
 
     private
 
-    sig { abstract.returns(T.untyped) }
     def perform; end
   end
 end
