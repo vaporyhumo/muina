@@ -4,3 +4,5 @@ module Muina
   # Top level error class for {Muina}
   Error = Class.new(StandardError)
 end
+
+require_relative 'muina/maybe'
