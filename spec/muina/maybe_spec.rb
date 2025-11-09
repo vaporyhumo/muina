@@ -38,4 +38,32 @@ RSpec.describe Muina::Maybe do
       expect(none.instance_variable_get(:@value)).to be_nil
     end
   end
+
+  describe '#some?' do
+    context 'when instance is of the some variant' do
+      specify do
+        expect(some.some?).to be true
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        expect(none.some?).to be false
+      end
+    end
+  end
+
+  describe '#none?' do
+    context 'when instance is of the some variant' do
+      specify do
+        expect(some.none?).to be false
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        expect(none.none?).to be true
+      end
+    end
+  end
 end
