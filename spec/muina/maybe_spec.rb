@@ -80,4 +80,19 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#value_or' do
+    context 'when instance is of the some variant' do
+      specify do
+        expect(some.value_or(Object.new)).to be object
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        object = Object.new
+        expect(none.value_or(object)).to be object
+      end
+    end
+  end
 end

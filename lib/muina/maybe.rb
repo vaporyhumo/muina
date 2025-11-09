@@ -56,5 +56,20 @@ module Muina
 
       @value
     end
+
+    # Returns the contained value if instance is of the +Some+ variant, or the
+    # provided +default+ value if it is of the +None+ variant.
+    #
+    # @param [Object] default the value to be used if the instance is of the
+    #   {None} variant.
+    # @return [Elem] if instance is of the +Some+ variant.
+    # @return [Object] if instance is of the +None+ variant.
+    def value_or(default)
+      if @value.nil?
+        default
+      else
+        @value
+      end
+    end
   end
 end
