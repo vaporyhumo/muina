@@ -1,2 +1,6 @@
 doc/
 .yardoc/
+
+coverage/
+
+.rspec_status
