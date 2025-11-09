@@ -3,6 +3,14 @@
 module Muina
   class Maybe
     class << self
+      # Returns a {Maybe} of the +Some+ variant wrapping the provided value.
+      #
+      # @param [Elem] value a value to wrap around a +Some+ variant.
+      # @return [Maybe<Elem>]
+      def some(value)
+        new(value)
+      end
+
       # Returns a {Maybe} of the +None+ variant, a safer alternative to +nil+.
       #
       # @return [Maybe]
