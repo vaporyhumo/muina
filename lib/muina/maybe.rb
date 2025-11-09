@@ -13,6 +13,7 @@ module Muina
       def some(value)
         new(value)
       end
+      alias return some
 
       # Returns a {Maybe} of the +None+ variant, a safer alternative to +nil+.
       #
@@ -121,6 +122,21 @@ module Muina
       end
 
       self
+    end
+
+    # If instance is of the +Some+ variant, it passes the contained value to the
+    # block and returns a new +Some+ instance containing the return value of the
+    # block; if instance is of the +None+ variant, it returns itself.
+    #
+    # @yieldparam value [Elem] the contained value is passed to the block
+    # @yieldreturn [Object]
+    # @return [Maybe<yield>]
+    def map
+      if @value.nil?
+        self
+      else
+        Maybe.return yield(@value)
+      end
     end
   end
 end
