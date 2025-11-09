@@ -85,5 +85,14 @@ module Muina
         @value
       end
     end
+
+    # Returns the contained value if instance is of the +Some+ variant, or +nil+
+    # if it is of the +None+ variant.
+    #
+    # @return [Elem] if instance is of the +Some+ variant.
+    # @return [nil] if instance is of the +None+ variant.
+    def value_or_nil
+      @value
+    end
   end
 end
