@@ -95,4 +95,18 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#value_or_yield' do
+    context 'when instance is of the some variant' do
+      specify do
+        expect(some.value_or_yield { true }).to be object
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        expect(none.value_or_yield { object }).to be object
+      end
+    end
+  end
 end

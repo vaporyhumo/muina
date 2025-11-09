@@ -71,5 +71,19 @@ module Muina
         @value
       end
     end
+
+    # Returns the contained value if instance is of the +Some+ variant, or runs
+    # the provided block and returns its result if it is of the +None+ variant.
+    #
+    # @yieldreturn [Object]
+    # @return [Elem] if instance is of the +Some+ variant.
+    # @return [yield] if instance is of the +None+ variant.
+    def value_or_yield
+      if @value.nil?
+        yield
+      else
+        @value
+      end
+    end
   end
 end
