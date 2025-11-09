@@ -143,4 +143,24 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#or_else' do
+    context 'when instance is of the some variant' do
+      specify do
+        allow(object).to receive(:inspect)
+        result = some.or_else { object.inspect }
+        expect(object).not_to have_received(:inspect)
+        expect(result).to be some
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        allow(object).to receive(:inspect)
+        result = none.or_else { object.inspect }
+        expect(object).to have_received(:inspect)
+        expect(result).to be none
+      end
+    end
+  end
 end

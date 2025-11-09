@@ -108,5 +108,19 @@ module Muina
 
       self
     end
+
+    # Runs the provided block only if instance is of the +None+ variant,
+    # yielding no value to the block.
+    # Always returns +self+.
+    #
+    # @yieldreturn [Object]
+    # @return [self]
+    def or_else(&_blk)
+      if @value.nil?
+        yield
+      end
+
+      self
+    end
   end
 end
