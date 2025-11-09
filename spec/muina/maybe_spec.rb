@@ -66,4 +66,18 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#value!' do
+    context 'when instance is of the some variant' do
+      specify do
+        expect(some.value!).to be object
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        expect { none.value! }.to raise_error Muina::Maybe::UnwrappingError
+      end
+    end
+  end
 end

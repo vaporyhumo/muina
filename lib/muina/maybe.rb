@@ -2,6 +2,9 @@
 
 module Muina
   class Maybe
+    # Raised when trying to unwrap the value on a +None+ variant.
+    UnwrappingError = Class.new(Error)
+
     class << self
       # Returns a {Maybe} of the +Some+ variant wrapping the provided value.
       #
@@ -41,6 +44,17 @@ module Muina
     # @return [false] if instance is of the +Some+ variant.
     def none?
       @value.nil?
+    end
+
+    # Returns the contained value if instance is of the +Some+ variant, or
+    # raises {UnwrappingError} if it is of the +None+ variant.
+    #
+    # @return [Elem] if instance is of the +Some+ variant.
+    # @raise [UnwrappingError] if instance is of the +None+ variant.
+    def value!
+      raise UnwrappingError if @value.nil?
+
+      @value
     end
   end
 end
