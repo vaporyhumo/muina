@@ -181,4 +181,22 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#map_none' do
+    context 'when instance is of the some variant' do
+      specify do
+        result = some.map_none { 1 }
+                     .value!
+        expect(result).to be object
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        result = none.map_none { 1 }
+                     .value!
+        expect(result).to be 1
+      end
+    end
+  end
 end

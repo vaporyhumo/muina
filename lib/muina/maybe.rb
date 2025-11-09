@@ -138,5 +138,20 @@ module Muina
         Maybe.return yield(@value)
       end
     end
+
+    # If instance is of the +Some+ variant, it returns itself; if instance is of
+    # the +None+ variant it runs the block and returns a new instance
+    # containing the return value of the block.
+    #
+    # @yield []
+    # @yieldreturn [Object]
+    # @return [Maybe<yield>, self]
+    def map_none
+      if @value.nil?
+        Maybe.return yield
+      else
+        self
+      end
+    end
   end
 end
