@@ -28,8 +28,8 @@ module Muina
     # Returns +true+ if instance is of the +Some+ variant, or +false+ if it is
     # of the +None+ variant.
     #
-    # @return [true] if instance is of the +Some+ variant
-    # @return [false] if instance is of the +None+ variant
+    # @return [true] if instance is of the +Some+ variant.
+    # @return [false] if instance is of the +None+ variant.
     def some?
       !@value.nil?
     end
@@ -37,8 +37,8 @@ module Muina
     # Returns +true+ if instance is of the +None+ variant, or +false+ if it is
     # of the +Some+ variant.
     #
-    # @return [true] if instance is of the +None+ variant
-    # @return [false] if instance is of the +Some+ variant
+    # @return [true] if instance is of the +None+ variant.
+    # @return [false] if instance is of the +Some+ variant.
     def none?
       @value.nil?
     end
