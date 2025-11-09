@@ -123,4 +123,24 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#and_then' do
+    context 'when instance is of the some variant' do
+      specify do
+        allow(object).to receive(:inspect)
+        result = some.and_then { |o| o.inspect }
+        expect(object).to have_received(:inspect)
+        expect(result).to be some
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        allow(object).to receive(:inspect)
+        result = none.and_then { |o| o.inspect }
+        expect(object).not_to have_received(:inspect)
+        expect(result).to be none
+      end
+    end
+  end
 end

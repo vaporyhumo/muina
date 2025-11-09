@@ -94,5 +94,19 @@ module Muina
     def value_or_nil
       @value
     end
+
+    # Runs the provided block only if instance is of the +Some+ variant,
+    # yielding the contained value.
+    # Always returns +self+.
+    #
+    # @yieldparam value [Elem] the contained value is passed to the block.
+    # @return [self]
+    def and_then(&_blk)
+      unless @value.nil?
+        yield(@value)
+      end
+
+      self
+    end
   end
 end
