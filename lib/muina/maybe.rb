@@ -153,5 +153,20 @@ module Muina
         self
       end
     end
+
+    # If instance is of the +Some+ variant, it yields the contained value to the
+    # block and it returns the return value of the block; if it is of the +None+
+    # variant, it returns itself.
+    #
+    # @yieldparam value [Elem] the contained value is passed to the block
+    # @yieldreturn [Maybe]
+    # @return [Maybe]
+    def bind
+      if @value.nil?
+        self
+      else
+        yield(@value)
+      end
+    end
   end
 end

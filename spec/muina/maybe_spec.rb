@@ -199,4 +199,22 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#bind' do
+    context 'when instance is of the some variant' do
+      specify do
+        some = described_class::return(1)
+        result = some.bind { |i| described_class.return(i + 1) }
+                     .value!
+        expect(result).to be 2
+      end
+    end
+
+    context 'when instance is of the none variant' do
+      specify do
+        result = none.bind { |i| described_class.return(i + 1) }
+        expect(result).to be none
+      end
+    end
+  end
 end
