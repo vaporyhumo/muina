@@ -128,18 +128,26 @@ RSpec.describe Muina::Maybe do
     context 'when instance is of the some variant' do
       specify do
         allow(object).to receive(:inspect)
-        result = some.and_then { |o| o.inspect }
+        result = some.and_then(&:inspect)
         expect(object).to have_received(:inspect)
         expect(result).to be some
       end
     end
 
     context 'when instance is of the none variant' do
-      specify do
+      before do
         allow(object).to receive(:inspect)
-        result = none.and_then { |o| o.inspect }
+        allow(nil).to receive(:inspect)
+      end
+
+      specify do
+        result = none.and_then(&:inspect)
+        expect(nil).not_to have_received(:inspect)
         expect(object).not_to have_received(:inspect)
         expect(result).to be none
+      end
+
+      specify do
       end
     end
   end
@@ -237,10 +245,6 @@ RSpec.describe Muina::Maybe do
 
   describe '#==' do
     specify do
-      expect(some).not_to be_nil
-    end
-
-    specify do
       left  = Maybe.return(1)
       right = Maybe.return(2)
 
@@ -264,7 +268,7 @@ RSpec.describe Muina::Maybe do
     end
 
     specify do
-      expect(none).not_to be_nil
+      expect(some).not_to eq Object.new
     end
   end
 end
