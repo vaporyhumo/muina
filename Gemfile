@@ -7,6 +7,4 @@ gem 'mutant-rspec'
 gem 'rspec'
 gem 'rubocop'
 gem 'simplecov'
-gem 'webrick'
-gem 'yard'
 

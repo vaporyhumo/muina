@@ -88,8 +88,6 @@ GEM
       diff-lcs (~> 1.6)
       parser (>= 3.3.0)
       prism (>= 1.5.1)
-    webrick (1.9.1)
-    yard (0.9.37)
 
 PLATFORMS
   arm64-darwin-24
@@ -97,12 +95,10 @@ PLATFORMS
 
 DEPENDENCIES
   mutant
-  mutant-rspec (~> 0.13.5)
+  mutant-rspec
   rspec
   rubocop
   simplecov
-  webrick
-  yard
 
 BUNDLED WITH
    2.7.2
