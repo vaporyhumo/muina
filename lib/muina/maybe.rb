@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Muina
+  # The {Maybe} monad is a safer alternative to the usage of +nil+. It can
+  # either hold a value, in which case is considered to be of the +Some+
+  # variant, or not, in which case is considered to be of the +None+ variant.
   class Maybe
     # Raised when trying to unwrap the value on a +None+ variant.
     UnwrappingError = Class.new(Error)
@@ -62,7 +65,7 @@ module Muina
     # provided +default+ value if it is of the +None+ variant.
     #
     # @param [Object] default the value to be used if the instance is of the
-    #   {None} variant.
+    #   +None+ variant.
     # @return [Elem] if instance is of the +Some+ variant.
     # @return [Object] if instance is of the +None+ variant.
     def value_or(default)
