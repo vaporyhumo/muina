@@ -183,5 +183,14 @@ module Muina
         self
       end
     end
+
+    # Returns +true+ if both instances are of the same variant, and the
+    # contained values are equal in the case of +Some+.
+    #
+    # @param [Maybe<Elem>] other
+    # @return [Boolean]
+    def ==(other)
+      self.class == other.class && value_or_nil == other.value_or_nil
+    end
   end
 end

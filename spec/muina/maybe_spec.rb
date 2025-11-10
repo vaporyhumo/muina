@@ -234,4 +234,37 @@ RSpec.describe Muina::Maybe do
       end
     end
   end
+
+  describe '#==' do
+    specify do
+      expect(some).not_to be_nil
+    end
+
+    specify do
+      left  = Maybe.return(1)
+      right = Maybe.return(2)
+
+      expect(left).not_to eq right
+    end
+
+    specify do
+      expect(some).to eq described_class.return(object)
+    end
+
+    specify do
+      expect(some).not_to eq described_class.none
+    end
+
+    specify do
+      expect(none).to eq described_class.none
+    end
+
+    specify do
+      expect(none).not_to eq described_class.some(1)
+    end
+
+    specify do
+      expect(none).not_to be_nil
+    end
+  end
 end
