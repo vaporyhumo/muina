@@ -102,7 +102,7 @@ module Muina
     #
     # @yieldparam value [Elem] the contained value is passed to the block.
     # @return [self]
-    def and_then(&_blk)
+    def and_then
       unless @value.nil?
         yield(@value)
       end
@@ -116,7 +116,7 @@ module Muina
     #
     # @yieldreturn [Object]
     # @return [self]
-    def or_else(&_blk)
+    def or_else
       if @value.nil?
         yield
       end
