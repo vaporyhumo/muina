@@ -168,5 +168,20 @@ module Muina
         yield(@value)
       end
     end
+
+    # If instance is of the +None+ variant, it runs the provided block and it
+    # returns its return value; if it is of the +Some+ variant, it returns
+    # itself.
+    #
+    # @yield []
+    # @yieldreturn [Maybe]
+    # @return [Maybe]
+    def bind_none
+      if @value.nil?
+        yield
+      else
+        self
+      end
+    end
   end
 end
