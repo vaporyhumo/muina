@@ -1,6 +1,9 @@
+# yardoc
 doc/
 .yardoc/
 
+# simplecov
 coverage/
 
+# rspec
 .rspec_status
