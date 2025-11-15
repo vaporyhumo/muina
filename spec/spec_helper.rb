@@ -25,4 +25,6 @@ RSpec.configure do |config|
   config.define_derived_metadata do |meta|
     meta[:aggregate_failures] = true
   end
+
+  RSpec::Mocks.configuration.allow_message_expectations_on_nil = true
 end
