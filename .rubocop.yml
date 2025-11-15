@@ -1,0 +1,12 @@
+---
+inherit_gem:
+  rubocop-vaporyhumo: config.yml
+
+AllCops:
+  NewCops: enable
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
