@@ -7,7 +7,8 @@ RSpec.describe Muina::Maybe do
 
   describe '.new' do
     specify do
-      expect { described_class.new }.to raise_error(NoMethodError)
+      expect { described_class.new }
+        .to raise_error(NoMethodError)
     end
   end
 
@@ -76,7 +77,8 @@ RSpec.describe Muina::Maybe do
 
     context 'when instance is of the none variant' do
       specify do
-        expect { none.value! }.to raise_error Muina::Maybe::UnwrappingError
+        expect { none.value! }
+          .to raise_error Muina::Maybe::UnwrappingError
       end
     end
   end
@@ -126,7 +128,7 @@ RSpec.describe Muina::Maybe do
 
   describe '#and_then' do
     context 'when instance is of the some variant' do
-      specify do
+      it 'yields the value', :aggregate_failures do
         allow(object).to receive(:inspect)
         result = some.and_then(&:inspect)
         expect(object).to have_received(:inspect)
@@ -140,21 +142,18 @@ RSpec.describe Muina::Maybe do
         allow(nil).to receive(:inspect)
       end
 
-      specify do
+      it 'does not yield anything', :aggregate_failures do
         result = none.and_then(&:inspect)
-        expect(nil).not_to have_received(:inspect)
+        expect(nil).not_to have_received(:inspect) # rubocop:disable RSpec/ExpectActual
         expect(object).not_to have_received(:inspect)
         expect(result).to be none
-      end
-
-      specify do
       end
     end
   end
 
   describe '#or_else' do
     context 'when instance is of the some variant' do
-      specify do
+      specify 'does not run the code', :aggregate_failures do
         allow(object).to receive(:inspect)
         result = some.or_else { object.inspect }
         expect(object).not_to have_received(:inspect)
@@ -163,7 +162,7 @@ RSpec.describe Muina::Maybe do
     end
 
     context 'when instance is of the none variant' do
-      specify do
+      specify 'runs the code', :aggregate_failures do
         allow(object).to receive(:inspect)
         result = none.or_else { object.inspect }
         expect(object).to have_received(:inspect)
