@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-SimpleCov.start do
+SimpleCov.start do # rubocop:disable Metrics/BlockLength
   enable_coverage  :branch
   primary_coverage :branch
 
