@@ -4,7 +4,7 @@ module Muina
   # The {Maybe} monad is a safer alternative to the usage of +nil+. It can
   # either hold a value, in which case is considered to be of the +Some+
   # variant, or not, in which case is considered to be of the +None+ variant.
-  class Maybe
+  class Maybe # rubocop:disable Metrics/ClassLength
     # Raised when trying to unwrap the value on a +None+ variant.
     UnwrappingError = Class.new(Error)
 
@@ -106,9 +106,7 @@ module Muina
     # @yieldparam value [Elem] the contained value is passed to the block.
     # @return [self]
     def and_then
-      unless @value.nil?
-        yield(@value)
-      end
+      yield(@value) unless @value.nil?
 
       self
     end
@@ -120,9 +118,7 @@ module Muina
     # @yieldreturn [Object]
     # @return [self]
     def or_else
-      if @value.nil?
-        yield
-      end
+      yield if @value.nil?
 
       self
     end
